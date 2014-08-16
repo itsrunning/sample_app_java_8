@@ -28,3 +28,7 @@
     java -jar microblog-0.0.1-SNAPSHOT.jar db migrate microblog.yml
     java -jar microblog-0.0.1-SNAPSHOT.jar server microblog.yml
 ```
+
+
+## Forked from 
+https://github.com/sahilm/dropwizard-snapci-sample

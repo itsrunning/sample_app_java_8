@@ -8,6 +8,7 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @RegisterMapper(UserMapper.class)
 public interface UserDAO {
@@ -16,5 +17,8 @@ public interface UserDAO {
 
     @SqlQuery("select * from users where name = :name")
     User findByName(@Bind("name") String name);
+
+    @SqlQuery("select * from users")
+    List<User> findAll();
 }
 

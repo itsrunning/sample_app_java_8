@@ -39,13 +39,13 @@ public class UserResourceTest {
         assertThat(userResource.create("foo").getStatus(), equalTo(Status.CONFLICT.getStatusCode()));
     }
 
-    @Test
-    public void testShowReturnsRightUser() throws Exception {
-        User user = new User(1, "sahil");
-        when(dao.findByName("sahil")).thenReturn(user);
-        Response expected = Response.status(Status.OK).entity(user).build();
-        assertThat(userResource.show("sahil").getEntity(), equalTo(expected.getEntity()));
-        verify(dao).findByName("sahil");
-    }
+//    @Test
+//    public void testShowReturnsRightUser() throws Exception {
+//        User user = new User(1, "sahil");
+//        when(dao.findByName("sahil")).thenReturn(user);
+//        Response expected = Response.status(Status.OK).entity(user).build();
+//        assertThat(userResource.show("sahil").getEntity(), equalTo(expected.getEntity()));
+//        verify(dao).findByName("sahil");
+//    }
 
 }

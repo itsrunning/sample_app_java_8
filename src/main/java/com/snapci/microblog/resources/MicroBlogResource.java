@@ -1,11 +1,13 @@
 package com.snapci.microblog.resources;
 
-
 import com.snapci.microblog.core.ErrorResponse;
 import com.snapci.microblog.core.MicroBlog;
 import com.snapci.microblog.core.User;
 import com.snapci.microblog.jdbi.MicroBlogDAO;
 import com.snapci.microblog.jdbi.UserDAO;
+import com.snapci.microblog.views.BlogsView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,6 +21,8 @@ import java.util.List;
 public class MicroBlogResource {
     private final MicroBlogDAO microBlogDAO;
     private final UserDAO userDAO;
+
+    final static Logger logger = LoggerFactory.getLogger(MicroBlogResource.class);
 
     public MicroBlogResource(MicroBlogDAO microBlogDAO, UserDAO userDAO) {
         this.microBlogDAO = microBlogDAO;
@@ -63,5 +67,14 @@ public class MicroBlogResource {
         }
         URI location = UriBuilder.fromPath(String.valueOf(id)).build();
         return Response.created(location).build();
+    }
+
+    @GET
+    @Path("/all")
+    @Produces(MediaType.TEXT_HTML)
+    public BlogsView showAllUserBlog(@PathParam("user") String userName) {
+        User user = userDAO.findByName(userName);
+        List<MicroBlog> microBlogs = microBlogDAO.findAllByUserId(user.getId());
+        return new BlogsView(microBlogs, user);
     }
 }

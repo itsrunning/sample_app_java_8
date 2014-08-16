@@ -1,8 +1,10 @@
 package com.snapci.microblog.resources;
 
+import com.google.common.base.Optional;
 import com.snapci.microblog.core.ErrorResponse;
 import com.snapci.microblog.core.User;
 import com.snapci.microblog.jdbi.UserDAO;
+import com.snapci.microblog.views.UserView;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -35,13 +37,19 @@ public class UserResource {
     }
 
     @GET
-    @Path("/{name}")
-    public Response show(@PathParam("name") String name) {
-        User user = dao.findByName(name);
+    public Response show(@QueryParam("name") Optional<String> name) {
+        User user = dao.findByName(name.or("1"));
         if (user == null) {
             return new ErrorResponse(Status.NOT_FOUND).build();
         }
         return Response.status(Status.OK).entity(user).build();
+    }
+
+    @GET
+    @Path("/all")
+    @Produces(MediaType.TEXT_HTML)
+    public UserView showAllUsers() {
+        return new UserView(dao.findAll());
     }
 
 }

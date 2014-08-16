@@ -1,0 +1,19 @@
+<html>
+    <body>
+
+    <table>
+        <tr>
+            <th> id </th>
+            <th> name </th>
+            <th> blog </th>
+        </tr>
+    {{#users}}
+    <tr class="{{id}}">
+        <td> {{id}}</td>
+        <td>{{name}}</td>
+        <td> <a href="/{{name}}/blog/all"> blog </a> </td>
+    </tr>
+    {{/users}}
+    </table>
+    </body>
+</html>

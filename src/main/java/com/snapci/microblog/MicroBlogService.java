@@ -12,6 +12,7 @@ import com.yammer.dropwizard.jdbi.DBIFactory;
 import com.yammer.dropwizard.jdbi.bundles.DBIExceptionsBundle;
 import com.yammer.dropwizard.migrations.MigrationsBundle;
 import org.skife.jdbi.v2.DBI;
+import com.yammer.dropwizard.views.ViewBundle;
 
 public class MicroBlogService extends Service<MicroBlogConfiguration> {
     public static void main(String... args) throws Exception {
@@ -28,6 +29,7 @@ public class MicroBlogService extends Service<MicroBlogConfiguration> {
             }
         });
         bootstrap.addBundle(new DBIExceptionsBundle());
+        bootstrap.addBundle(new ViewBundle());
     }
 
 

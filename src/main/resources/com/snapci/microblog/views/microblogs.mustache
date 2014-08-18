@@ -1,22 +1,19 @@
 <html>
 <body>
-<h1>{{user.name}}</h1>
+<a href="/users/all"> Back To All Users </a>
+<h1>{{user.name}}'s Blog Page</h1>
+<a href="/{{user.name}}/blog/new"> Create New Blog </a>
 <table>
     <tr>
-    <th> id </th>
-    <th> name </th>
-    <th> blog </th>
+        <th> Id </th>
+        <th> View Content </th>
     </tr>
-
-{{#microblogs}}
+    {{#microBlogs}}
     <tr class="{{id}}">
         <td> {{id}}</td>
-        <td>{{content}}</td>
-        <td><a href="{{user.name}}/blog?id={{id}}"> blog </a> </td>
+        <td><a href="/{{user.name}}/blog/?id={{id}}"> blog </a> </td>
     </tr>
-
-
-{{/microblogs}}
+    {{/microBlogs}}
 </table>
 </body>
 </html>

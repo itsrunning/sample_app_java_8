@@ -6,8 +6,7 @@ import com.snapci.microblog.core.User;
 import com.snapci.microblog.jdbi.MicroBlogDAO;
 import com.snapci.microblog.jdbi.UserDAO;
 import com.snapci.microblog.views.BlogsView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.snapci.microblog.views.NewBlogView;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +21,6 @@ public class MicroBlogResource {
     private final MicroBlogDAO microBlogDAO;
     private final UserDAO userDAO;
 
-    final static Logger logger = LoggerFactory.getLogger(MicroBlogResource.class);
 
     public MicroBlogResource(MicroBlogDAO microBlogDAO, UserDAO userDAO) {
         this.microBlogDAO = microBlogDAO;
@@ -77,4 +75,14 @@ public class MicroBlogResource {
         List<MicroBlog> microBlogs = microBlogDAO.findAllByUserId(user.getId());
         return new BlogsView(microBlogs, user);
     }
+
+    @GET
+    @Path("/new")
+    @Produces(MediaType.TEXT_HTML)
+    public NewBlogView newUser(@PathParam("user") String userName) {
+        User user = userDAO.findByName(userName);
+        return new NewBlogView(user);
+
+    }
+
 }

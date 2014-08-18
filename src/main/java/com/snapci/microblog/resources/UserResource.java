@@ -4,7 +4,10 @@ import com.google.common.base.Optional;
 import com.snapci.microblog.core.ErrorResponse;
 import com.snapci.microblog.core.User;
 import com.snapci.microblog.jdbi.UserDAO;
+import com.snapci.microblog.views.NewUserView;
 import com.snapci.microblog.views.UserView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -24,11 +27,17 @@ public class UserResource {
         this.dao = dao;
     }
 
+    final static Logger logger = LoggerFactory.getLogger(UserResource.class);
+
+
     @POST
     public Response create(@FormParam("name") String name) {
+        logger.info("got here");
+        logger.info(name);
         User user = new User(name);
         try {
             dao.create(user);
+            logger.info("created");
         } catch (Exception e) {
             return ErrorResponse.fromException(e).build();
         }
@@ -50,6 +59,15 @@ public class UserResource {
     @Produces(MediaType.TEXT_HTML)
     public UserView showAllUsers() {
         return new UserView(dao.findAll());
+    }
+
+
+    @GET
+    @Path("/new")
+    @Produces(MediaType.TEXT_HTML)
+    public NewUserView newUser() {
+        return new NewUserView();
+
     }
 
 }

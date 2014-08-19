@@ -5,13 +5,11 @@
 <a href="/{{user.name}}/blog/new"> Create New Blog </a>
 <table>
     <tr>
-        <th> Id </th>
         <th> View Content </th>
     </tr>
     {{#microBlogs}}
-    <tr class="{{id}}">
-        <td> {{id}}</td>
-        <td><a href="/{{user.name}}/blog/?id={{id}}"> blog </a> </td>
+    <tr>
+        <td><a href="/{{user.name}}/blog/?id={{id}}"> {{content}} </a> </td>
     </tr>
     {{/microBlogs}}
 </table>
